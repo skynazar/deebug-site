@@ -1,51 +1,14 @@
-# deebug.io — site
+# deebug.io
 
-Single static page. No build step, no dependencies, no external requests. All CSS is
-inline, the favicon is a data URI, and the CSP is `default-src 'none'` — the page loads
-nothing from anywhere.
+Source for the site at [deebug.io](https://deebug.io) — a single static page, no JS,
+no external requests, inline CSS.
 
-## Files
-
-```
-index.html                  the page
-pgp.txt                     PLACEHOLDER — replace with the real armored public key
-robots.txt  sitemap.xml
-_headers                    Cloudflare Pages security headers (A+ on securityheaders.com)
-.well-known/security.txt    RFC 9116 disclosure policy
-```
-
-## Deploy (Cloudflare Pages)
-
-Wait for the zone to show **Active** in Cloudflare first — the delegation has to flip
-before a custom domain can attach.
-
-**Direct upload** — fastest, no repo needed:
-
-1. Cloudflare dashboard → Workers & Pages → Create → Pages → Upload assets
-2. Project name `deebug`, drag this `site/` directory in
-3. Custom domains → add `deebug.io` and `www.deebug.io`
-
-**Or via CLI:**
+Hosted on **Firebase Hosting** (project `deebug-io`). Response headers, including
+`Content-Security-Policy: default-src 'none'`, are set in `firebase.json`.
 
 ```sh
-npx wrangler pages deploy site --project-name=deebug
+firebase deploy --only hosting --project deebug-io
 ```
 
-Then delete the NameCheap parking A record (`192.64.119.91`) — Pages replaces it.
-
-## Before it goes live
-
-- [ ] Generate the PGP key, replace `pgp.txt`, publish the fingerprint
-- [x] Mail on Google Workspace (domain alias of emoment.jp). MX `smtp.google.com`,
-      SPF, DKIM (`google._domainkey`) and DMARC are live in Cloudflare.
-      Addresses: `research@` (outbound), `security@` (disclosure), `support@` (reserved).
-      Do NOT enable Cloudflare Email Routing — it would seize the MX records.
-- [ ] Fill in profile links in `index.html` as handles are claimed — each is marked
-      `<span class="pending">` with a comment above the list
-- [ ] Bump `Expires` in `security.txt` annually — an expired one is worse than none
-- [ ] Verify at securityheaders.com and hardenize.com
-
-## Deliberately absent
-
-No analytics, no fonts, no CDN, no JS. Every external request is a tracking surface and
-a CSP exception, and this audience notices. Keep it that way.
+This repo is a public mirror. It is not the deploy source — deploys run from a local
+working copy, so a change here does not go live on its own.
