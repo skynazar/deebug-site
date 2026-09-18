@@ -1,0 +1,12 @@
+Placeholder. Generate the key, then replace this entire file with the armored
+public key block.
+
+  gpg --quick-generate-key "deebug <research@deebug.io>" ed25519 sign,auth 3y
+  gpg --armor --export research@deebug.io > pgp.txt
+
+Publish the fingerprint here too — people verify against it:
+
+  gpg --fingerprint research@deebug.io
+
+Back the private key up offline before you publish anything that points at it.
+Do not commit the private key. Ever.

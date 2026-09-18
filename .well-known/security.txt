@@ -1,0 +1,9 @@
+# security.txt for deebug.io — RFC 9116
+# Disclosure policy for deebug.io itself.
+
+Contact: mailto:security@deebug.io
+Contact: https://deebug.io/
+Expires: 2027-09-18T00:00:00.000Z
+Encryption: https://deebug.io/pgp.txt
+Preferred-Languages: en
+Canonical: https://deebug.io/.well-known/security.txt
